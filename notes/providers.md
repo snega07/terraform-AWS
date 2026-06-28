@@ -8,6 +8,8 @@ They enable Terraform to call the underlying platform APIs and create, update, o
 
 Each provider has its own version, and Terraform provider versions should be carefully managed and locked, especially during development (DEV) and testing (UAT), to ensure consistency and avoid unexpected changes.
 
+![alt text](image.png)
+
 ### Why Providers are Needed?
 
 Each provider defines its own set of resource types and data sources. Without providers, Terraform cannot interact with or manage any external system.
