@@ -1,9 +1,24 @@
 ## State File
 
 - State file is terraform proof of work. Whenever we do changes in the resource creation configuration, post apply it stores the state of resources it created. 
+- If the state file is managed locally it creates tfstate.backup file which holds the old state before terraform apply.
 - During terraform plan, Terraform compares the desired configuration with the current state (using the state file and refreshing from the provider) to determine what changes are required.
 - During the first terraform apply, Terraform creates the resources by calling the cloud provider APIs and then generates the state file.
 - The state file tells Terraform what it previously created. Terraform also queries the cloud provider (unless refresh is disabled) to detect drift before producing the plan.
+
+## Copy local state to remote:
+
+- When you initially haven't configured remote backend and later moved to remote. The local state will be copied to remote backend during terraform init.
+- If the state file is managed locally it creates tfstate.backup file which holds the old state before terraform apply. Incase of remote backend there is no tfstate.backup it is managed by s3 versioning.
+- With remote backend, terraform creates terraform.tfstate in .terraform folder which has the backend details like s3 bucket name and object name. It is safe to delete it will be re-created with init command.
+
+| Local Backend                              | Remote Backend (S3)                                 |
+| ------------------------------------------ | --------------------------------------------------- |
+| `terraform.tfstate` created locally        | State stored in S3                                  |
+| `terraform.tfstate.backup` created locally | No local `.backup` file                             |
+| Backup is a local file                     | Backup is typically handled using **S3 Versioning** |
+| Suitable for single-user development       | Suitable for teams and production                   |
+
 
 ## Best practice
 
