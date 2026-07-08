@@ -35,3 +35,10 @@ for_each > each.key, each.value
 **create_before_destroy:** Avoids downtime by launching a new resource variant prior to deleting the old one.
 **prevent_destroy:** Protects critical resources (like production databases) from accidental deletion.
 **ignore_changes:** Stops Terraform from overwriting external configuration changes made directly in the cloud console
+
+| Feature           | `count`                                  | `for_each`                                           |
+| ----------------- | ---------------------------------------- | ---------------------------------------------------- |
+| Input             | Number (integer)                         | Map or Set of strings                                |
+| Resource indexing | Numeric (`[0]`, `[1]`)                   | Key-based (`["web"]`, `["db"]`)                      |
+| Best for          | Identical resources                      | Resources with unique names/configurations           |
+| Stability         | Less stable when items are added/removed | More stable because resources are identified by keys |
