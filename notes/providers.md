@@ -61,6 +61,17 @@ aws config
 
 The required_providers block, together with the .terraform directory and terraform.lock.hcl, helps keep provider versions consistent across different environments and team members.
 
+| Operator | Meaning                | Example                  |
+| -------- | ---------------------- | ------------------------ |
+| `=`      | Exactly equal          | `= 6.53.0`               |
+| `!=`     | Not equal              | `!= 6.53.0`              |
+| `>`      | Greater than           | `> 6.53.0`               |
+| `>=`     | Greater than or equal  | `>= 6.53.0`              |
+| `<`      | Less than              | `< 7.0.0`                |
+| `<=`     | Less than or equal     | `<= 6.53.0`              |
+| `~>`     | Pessimistic constraint | `~> 6.53` or `~> 6.53.0` |
+
+
 ```hcl
 terraform {
   required_providers {
