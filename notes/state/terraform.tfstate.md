@@ -46,7 +46,7 @@ Deleting the state file does not delete infrastructure.
 
 - When storing the file in remote backend. We must make sure that this file won't be modified by more than one person at a time. Otherwise this will cause inconsisteny in the infrastructure.
 - Lock will be acheived using dynamoDB or terraform feature called lockfile in S3.
-- **Lockfile:** Conditional check implemented by tf, it will create a temprory lock file named "terraform.tfstate.tflock" when we do apply and post comlition of the work tf will delete this file. 
+- **Lockfile:** Conditional check implemented by tf, it will create a temprory lock file named "terraform.tfstate.tflock" when we do apply and post completion of the work tf will delete this file. 
 - Terraform attempts to create a temporary terraform.tfstate.tflock object. If the object already exists, another Terraform operation holds the lock, and Terraform aborts with a state lock error.
 
 **DynamoDB**
