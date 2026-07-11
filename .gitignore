@@ -1,3 +1,4 @@
 practice/.terraform/
 practice/*.tfstate
 practice/*.tfstate.*
+.terraform/

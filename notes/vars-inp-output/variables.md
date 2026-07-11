@@ -53,8 +53,7 @@ CLI Output        State File
 Password Hidden   Password NOT Stored
        ✓                 ✗
 ```
-- If a variable or output is flagged as sensitive in a child module, the calling parent module does not have to declare it as sensitive. If the parent exposes that value again as an output, that output must also be marked sensitive = true.
-- If a child module output is marked sensitive = true and the parent module exposes that output again, the parent output must also be marked sensitive = true. Otherwise, Terraform throws an error.
+- If a variable is flagged as sensitive in a child module, the calling parent module does not have to declare it as sensitive. If the parent exposes that value again as an output, that output must also be marked sensitive = true.
 
 ## Passing values to variable
 
@@ -92,3 +91,24 @@ terraform plan
 | `dev.tfvars`               | ❌ No         |
 | `prod.tfvars`              | ❌ No         |
 | `stage.tfvars.json`        | ❌ No         |
+
+## Const Variable
+
+Terraform evaluates input variables during the planning phase. However, some Terraform configuration, such as module source, provider source, and provider version, must be known during terraform init because Terraform needs this information before planning.
+
+Syntax:
+
+variable "module_version" {
+  type  = string
+  const = true
+}
+
+Example
+variable "module_version" {
+  type  = string
+  const = true
+}
+
+module "network" {
+  source = "git::https://github.com/company/network.git?ref=${var.module_version}"
+}
