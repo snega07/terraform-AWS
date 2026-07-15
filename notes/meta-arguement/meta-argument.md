@@ -1,3 +1,5 @@
+## Meta Arguement
+
 There is lots of optional and required argument that we can pass while creating resource in terraform. Terraform itself provide some in-build arguments that creates, scales and manage resources.
 
 They are supported my all the providers and regardless of the resource we creates.
@@ -22,7 +24,7 @@ They are supported my all the providers and regardless of the resource we create
 
 for_each > each.key, each.value
 
-## Provider
+## Provider and Providers
 
 **Purpose:** Specifies an alternate configuration for a resource or module when using multiple provider blocks.
 **Usage:** Ideal for multi-region or multi-account deployments.
