@@ -1,15 +1,14 @@
 resource "aws_instance" "example" {
-  for_each               = var.EC2_INSTANCE_TYPE
+  # for_each               = var.EC2_INSTANCE_TYPE
   ami                    = var.EC2_AMI
-  instance_type          = each.value
+  instance_type          = var.EC2_INSTANCE_TYPE
   key_name               = var.key_name
-  vpc_security_group_ids = [aws_security_group.allow_ssh.id]
+  vpc_security_group_ids = var.security_group_ids
   depends_on = [aws_security_group.allow_ssh]
+  subnet_id = var.subnet_id
 
 
-  tags = {
-    Name = each.key
-  }
+  tags = var.tags
 }
 
 resource "aws_security_group" "allow_ssh" {

@@ -14,14 +14,35 @@ variable "EC2_AMI" {
 }
 
 variable "EC2_INSTANCE_TYPE" {
-  type = map(string)
-  default = {
-    APP_Server = "t3.small"
-    ELK        = "t3.small"
-  }
+  type = string
+  default = "t3.small"
+  
 }
 
 variable "key_name" {
   type    = string
   default = "caresync"
+}
+
+# variable "app_name" {
+#   description = "Name of the application"
+#   type        = string
+# }
+
+# variable "vpc_id" {
+#   description = "VPC ID"
+#   type        = string
+# }
+
+variable "tags" {
+  type = object({
+    name      = string,
+    project   = string,
+    createdBy = string,
+  })
+  default = {
+    name      = "Project-tf-datasource",
+    project   = "Project-tf",
+    createdBy = "Terraform"
+  }
 }

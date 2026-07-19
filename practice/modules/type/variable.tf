@@ -5,7 +5,7 @@ variable "EC2_AMI" {
 }
 
 variable "EC2_INSTANCE_TYPE" {
-  type        = map(string)
+  type        = string
   description = "The instance type to use for the EC2 instance"
   # default = {
   #     APP_Server = "t3.small"
@@ -16,7 +16,6 @@ variable "EC2_INSTANCE_TYPE" {
 variable "key_name" {
   type        = string
   description = "The name of the key pair to use for the EC2 instance"
-
 }
 
 variable "tags" {
@@ -33,4 +32,16 @@ variable "tags" {
     createdBy = "Terraform"
   }
 
+}
+
+variable "security_group_ids" {
+  type        = list(string)
+  description = "List of security group IDs to associate with the EC2 instance"
+  
+}
+
+variable "subnet_id" {
+  type        = string
+  description = "The ID of the subnet to launch the EC2 instance in"
+  
 }

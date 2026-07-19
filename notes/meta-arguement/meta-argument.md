@@ -8,6 +8,7 @@ They are supported my all the providers and regardless of the resource we create
 ## Depends On
 
 **Purpose:** Explicitly defines structural dependencies between resources when Terraform cannot automatically infer them.
+Terraform by default use implicit dependecy graph while creating resources. Based on the other resources ID or values we pass in the resource configuration. 
 **Usage:** Forces Terraform to complete all actions on a prerequisite resource before configuring the dependent resource.
 **Example:** Ensuring an IAM Role policy is fully attached before launching an application instance that uses it
 
@@ -30,6 +31,43 @@ for_each > each.key, each.value
 **Usage:** Ideal for multi-region or multi-account deployments.
 **Example:** Deploying one database in us-east-1 and a backup database replica in us-west-2.
 
+| `provider`                       | `providers`                              |
+| -------------------------------- | ---------------------------------------- |
+| Defines or configures a provider | Maps provider configurations to a module |
+| Used in the root module          | Used inside a `module` block             |
+| Singular                         | Plural                                   |
+
+The providers argument is used inside a module block to tell the module which provider configuration to use.
+
+The module expects an aws provider.
+Instead of the default provider, you're passing the aliased provider aws.us.
+``` hcl
+Complete Example
+provider "aws" {
+  region = "ap-south-1"
+}
+
+provider "aws" {
+  alias  = "us"
+  region = "us-east-1"
+}
+
+module "india" {
+  source = "./modules/ec2"
+
+  providers = {
+    aws = aws
+  }
+}
+
+module "usa" {
+  source = "./modules/ec2"
+
+  providers = {
+    aws = aws.us
+  }
+}
+```
 ## Lifecycle rules
 
 **Purpose:** A nested configuration block that overrides Terraform's standard behavior during updates and deletions.
