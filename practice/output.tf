@@ -1,7 +1,15 @@
-# output "ec2_instance_details" {
-#   value = module.ec2.EC2_Instance_details
+# # output "ec2_instance_details" {
+# #   value = module.ec2.EC2_Instance_details
+# # }
+
+# # output "function_app_name" {
+# #   value = module.function.function_app_name
+# # }
+
+# output "VPC_ID"{
+#     value = module.vpc_peering.VPC_ID
 # }
 
-# output "function_app_name" {
-#   value = module.function.function_app_name
+# output "Peer_ID"{
+#     value = module.vpc_peering_east.VPC_ID
 # }

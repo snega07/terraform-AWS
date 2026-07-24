@@ -35,7 +35,7 @@ resource "aws_s3_bucket_policy" "allow_access_from_cloudfront" {
 }
 
 resource "aws_s3_object" "object" {
-  bucket = "cloudFrontS3"
+  bucket = aws_s3_bucket.cloudFrontS3.bucket
 
   for_each = fileset("${path.module}/www","**/*")
   key    = each.value
