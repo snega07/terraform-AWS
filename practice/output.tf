@@ -6,10 +6,10 @@
 # #   value = module.function.function_app_name
 # # }
 
-# output "VPC_ID"{
-#     value = module.vpc_peering.VPC_ID
-# }
+output "VPC_ID"{
+    value = module.vpc.VPC_ID
+}
 
-# output "Peer_ID"{
-#     value = module.vpc_peering_east.VPC_ID
-# }
+output "Peer_ID"{
+    value = module.vpc_east.VPC_ID
+}

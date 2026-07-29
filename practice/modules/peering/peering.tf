@@ -3,10 +3,10 @@ terraform {
   required_providers {
     aws = {
       source = "hashicorp/aws"
-      configuration_aliases = [
-        aws.requester,
-        aws.accepter
-      ]
+      # configuration_aliases = [
+      #   aws.requester,
+      #   aws.accepter
+      # ]
     }
   }
 }
@@ -35,4 +35,5 @@ resource "aws_vpc_peering_connection_accepter" "primary-to-secondary" {
 locals {
   vpc-con-tags = merge({name="${data.aws_region.requester.region}"},var.tag)
   con-acceptor-tag = merge({name="${data.aws_region.accepter.region}"},var.tag)
+
 }
