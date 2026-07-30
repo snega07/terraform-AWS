@@ -23,9 +23,10 @@ resource "aws_vpc" "vpc_main" {
 
 resource "aws_subnet" "primary" {
 
-  vpc_id     = aws_vpc.vpc_main.id
-  cidr_block = var.primary_subnet_cidr
-  availability_zone = data.aws_availability_zones.available.names[0]
+  vpc_id                  = aws_vpc.vpc_main.id
+  cidr_block              = var.primary_subnet_cidr
+  availability_zone       = data.aws_availability_zones.available.names[0]
+  map_public_ip_on_launch = true
 
   tags = local.subnet_tag
 }
@@ -38,14 +39,14 @@ resource "aws_internet_gateway" "gw" {
 resource "aws_route_table" "rtb-main" {
   vpc_id = aws_vpc.vpc_main.id
 
-  route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.gw.id
-  }
-
   tags = local.route_table_tag
+}
 
-  }
+resource "aws_route" "igw_route" {
+  route_table_id         = aws_route_table.rtb-main.id
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id             = aws_internet_gateway.gw.id
+}
 
 resource "aws_route_table_association" "example" {
   subnet_id      = aws_subnet.primary.id

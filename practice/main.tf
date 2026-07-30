@@ -64,3 +64,43 @@ module "peering_route_secondary"{
     vpc_peeringID = module.peering_connection.vpc_peering_connection_ID
 
 }
+
+module "peering_instance_primary"{
+    source = "./modules/EC2"
+    instance_type = "t3.micro"
+    subnetId = module.vpc.subnet_ID
+    vpc_ID = module.vpc.VPC_ID
+    ingress_map = var.ingress_map
+    key_name = "caresync"
+    ami = data.aws_ami.ubuntu.id
+    vpc_cidr = "10.1.0.0/16"
+    tag = {
+        Name = "primary"
+    }
+    
+}
+
+module "peering_instance_secondary"{
+    source = "./modules/EC2"
+    providers = {
+        aws = aws.east
+    }
+    vpc_cidr = "10.0.0.0/16"
+    instance_type = "t3.micro"
+    subnetId = module.vpc_east.subnet_ID
+    vpc_ID = module.vpc_east.VPC_ID
+    ingress_map = var.ingress_map2
+    key_name = "caresync"
+    ami = data.aws_ami.ubuntu_secondary.id
+    tag = {
+        Name = "primary"
+    }
+    
+}
+
+/*
+ICMP -> added
+cidr mismatch in sg
+
+
+*/

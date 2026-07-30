@@ -46,3 +46,73 @@ variable "tags" {
     createdBy = "Terraform"
   }
 }
+
+variable "ingress_map" {
+  type = map(object({
+    description = string
+    from_port   = number
+    to_port     = number
+    protocol    = string
+    cidr_blocks = list(string)
+  }))
+
+  default = {
+    ssh = {
+      description = "SSH from anywhere"
+      from_port   = 22
+      to_port     = 22
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+    }
+    http = {
+      description = "HTTP from anywhere"
+      from_port   = 80
+      to_port     = 80
+      protocol    = "tcp"
+      cidr_blocks = ["10.0.0.0/16"]
+    }
+    https = {
+      description = "HTTPS from anywhere"
+      from_port   = 443
+      to_port     = 443
+      protocol    = "tcp"
+      cidr_blocks = ["10.0.0.0/16"]
+    }
+  }
+}
+
+variable "ingress_map2" {
+  type = map(object({
+    description = string
+    from_port   = number
+    to_port     = number
+    protocol    = string
+    cidr_blocks = list(string)
+  }))
+
+  default = {
+    ssh = {
+      description = "SSH from anywhere"
+      from_port   = 22
+      to_port     = 22
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+    }
+    http = {
+      description = "HTTP from anywhere"
+      from_port   = 80
+      to_port     = 80
+      protocol    = "tcp"
+      cidr_blocks = ["10.1.0.0/16"]
+    }
+    https = {
+      description = "HTTPS from anywhere"
+      from_port   = 443
+      to_port     = 443
+      protocol    = "tcp"
+      cidr_blocks = ["10.1.0.0/16"]
+    }
+  }
+}
+
+
